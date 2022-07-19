@@ -1,0 +1,9 @@
+#login-container-body {
+    background-color: #f5f8fe;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1em;
+    min-height: 100vh;
+}
