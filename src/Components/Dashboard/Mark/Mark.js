@@ -1,37 +1,25 @@
-import { Checkbox, Toolbar } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import img from './../../../Images/cu_logo.png'
+import ToolbarGen from '../../Toolbar/Toolbar';
 import './Mark.css'
 const Mark = () => {
-    const [examType, setExamType] = useState();
-    useEffect(() => {
+    let option = document.querySelectorAll('input[name=exam]');
+    for (const item of option) {
+        document.getElementById('catm-field').style.display = "none";
+        document.getElementById('semester-field').style.display = "none";
+        item.addEventListener('click', () => {
 
-    }, [examType])
+            if (item.value === 'catm') {
+                document.getElementById('catm-field').style.display = "block";
+                document.getElementById('semester-field').style.display = "none";
+            }
+            else {
+                document.getElementById('catm-field').style.display = "none";
+                document.getElementById('semester-field').style.display = "block";
+            }
+        })
+    }
     return (
         <div>
-            <Toolbar
-                style={{
-                    backgroundColor: 'white',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    boxShadow: "2px 2px 5px #9caf9b",
-                    marginBottom: '20px'
-                }}
-            >
-                <div style={{
-                    textTransform: 'uppercase',
-                    fontSize: '21px',
-                    color: '#022b5e'
-                }}>Mark Input</div>
-                <Link to="/dashboard/profile"><img
-                    className='img-thumbnail' style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%'
-                    }}
-                    src={img} alt="user pic" /></Link>
-            </Toolbar>
+            <ToolbarGen title={"mark input"} />
             <div className='mark-container'>
                 <div className='confirmation'>
                     <div>
@@ -44,11 +32,38 @@ const Mark = () => {
                         <label for="semester">Semester final marks</label>
                     </div>
                 </div>
-                <div className='catm'>
-                    hi
-                </div>
-                <div className='semester'>
-                    hello
+                <div className='ajura'>
+                    <div id='catm-field'>
+                        {/* id, course code, mark,  */}
+                        <div className='mark-item'>
+                            <div className='icon mark-icon'>Course Code</div>
+                            <input className='b-input mark-input' />
+                        </div>
+                        <div className='mark-item'>
+                            <div className='icon mark-icon'>Student ID</div>
+                            <input className='b-input mark-input' />
+                        </div>
+                        <div className='mark-item'>
+                            <div className='icon mark-icon'>Mark</div>
+                            <input className='b-input mark-input' autoComplete='off' />
+                        </div>
+                        <button className='btn btn-outline-dark mt-2 '>Submit</button>
+                    </div>
+                    <div id='semester-field'>
+                        <div className='mark-item'>
+                            <div className='icon mark-icon'>Course Code</div>
+                            <input className='b-input mark-input' />
+                        </div>
+                        <div className='mark-item'>
+                            <div className='icon mark-icon'>Paper Code</div>
+                            <input className='b-input mark-input' autoComplete='off' />
+                        </div>
+                        <div className='mark-item'>
+                            <div className='icon mark-icon'>Mark</div>
+                            <input className='b-input mark-input' autoComplete='off' />
+                        </div>
+                        <button className='btn btn-outline-dark mt-2 '>Submit</button>
+                    </div>
                 </div>
             </div>
         </div>

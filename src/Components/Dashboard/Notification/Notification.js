@@ -1,34 +1,27 @@
-import { Toolbar } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import img from './../../../Images/cu_logo.png'
-
+import ToolbarGen from '../../Toolbar/Toolbar';
+import './Notification.css'
 const Notification = () => {
+
     return (
         <div>
-            <Toolbar
-                style={{
-                    backgroundColor: 'white',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    boxShadow: "2px 2px 5px #9caf9b",
-                    marginBottom: '20px'
-                }}
-            >
-                <div style={{
-                    textTransform: 'uppercase',
-                    fontSize: '21px',
-                    color: '#022b5e'
-                }}>notification</div>
-                <Link to="/dashboard/profile"><img
-                    className='img-thumbnail' style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%'
-                    }}
-                    src={img} alt="user pic" /></Link>
-            </Toolbar>
-        </div>
+            <ToolbarGen title="notification" />
+            <div id="notification">
+                {/* notification item */}
+                <div className='single-notification'>
+                    <label for="checkbox">
+                        <div className='notification-item'>
+                            <div className='not-icon'><i className="fas fa-bell"></i></div>
+                            <div className='not-text'>Please, submit your mark as early as possible.</div>
+                        </div>
+
+                    </label>
+                    <div>
+                        <input type="checkbox" id='checkbox' className='not-check' name="notification-item" />
+                    </div>
+                </div>
+            </div>
+        </div >
     );
 };
 

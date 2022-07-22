@@ -1,33 +1,14 @@
-import { Toolbar } from '@mui/material';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import img from './../../../Images/cu_logo.png'
+import React, { useState } from 'react';
+import TableGen from '../../Table/Table';
+import ToolbarGen from '../../Toolbar/Toolbar';
+import './History.css'
 
 const History = () => {
+    const [rows, setRows] = useState([{ date: "12/2/21", semester: "5th", course: "CSE412", cname: "Data Communication", sid: "19701051", mark: "12.1" }]);
     return (
         <div>
-            <Toolbar
-                style={{
-                    backgroundColor: 'white',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    boxShadow: "2px 2px 5px #9caf9b",
-                    marginBottom: '20px'
-                }}
-            >
-                <div style={{
-                    textTransform: 'uppercase',
-                    fontSize: '21px',
-                    color: '#022b5e'
-                }}>history</div>
-                <Link to="/dashboard/profile"><img
-                    className='img-thumbnail' style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%'
-                    }}
-                    src={img} alt="user pic" /></Link>
-            </Toolbar>
+            <ToolbarGen title={"history"} />
+            <TableGen rows={["date", "semester", "course id", "course name", "student id", "mark"]} values={rows} />
         </div>
     );
 };

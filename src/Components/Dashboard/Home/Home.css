@@ -1,0 +1,19 @@
+.box-shadow {
+    box-shadow: 2px 2px 4px rgb(214, 212, 212);
+    border-radius: 12px;
+    padding: 15px 12px;
+    background-color: white;
+    margin-bottom: 12px;
+}
+
+.committe {
+    background-color: antiquewhite;
+}
+
+.teacher {
+    background-color: aquamarine;
+}
+
+.emergency {
+    background-color: rgb(116, 156, 158);
+}

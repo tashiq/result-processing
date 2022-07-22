@@ -1,33 +1,33 @@
-import { Toolbar } from '@mui/material';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import img from './../../../Images/cu_logo.png'
 
+import React, { useState } from 'react';
+import TableGen from '../../Table/Table';
+import ToolbarGen from '../../Toolbar/Toolbar';
+import './Home.css'
 const Home = () => {
+    const [contact, setContact] = useState([{ name: "Mohammad Fahim Foisal", position: "Student", mobile: "01974261254" }, { name: "Mohammad Sakib", position: "Student", mobile: "01774261254" }, { name: "Mohammad Noman", position: "Job", mobile: "01674261254" }]);
+
+    const [teacher, setTeacher] = useState([{ name: "Mohammad Fahim Foisal", designation: "Student", mobile: "01974261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Sakib", designation: "Student", mobile: "01774261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Noman", designation: "Job", mobile: "01674261254", email: "fahim.csecu@gmail.com" }]);
+
+    const [member, setMember] = useState([{ name: "Mohammad Fahim Foisal", mobile: "01974261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Sakib", mobile: "01774261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Noman", mobile: "01674261254", email: "fahim.csecu@gmail.com" }]);
     return (
         <div>
-            <Toolbar
-                style={{
-                    backgroundColor: 'white',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    boxShadow: "2px 2px 5px #9caf9b",
-                    marginBottom: '20px'
-                }}
-            >
-                <div style={{
-                    textTransform: 'uppercase',
-                    fontSize: '21px',
-                    color: '#022b5e'
-                }}>Home</div>
-                <Link to="/dashboard/profile"><img
-                    className='img-thumbnail' style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%'
-                    }}
-                    src={img} alt="user pic" /></Link>
-            </Toolbar>
+            <ToolbarGen title={"home"} />
+            <div className="committe box-shadow">
+                <div className='fs-3 mb-2'>
+                    Exam Committe
+                </div>
+                <TableGen rows={["name", "contact", "email"]} values={member} />
+            </div>
+            <div className="teacher box-shadow">
+                <div className='fs-3 mb-2'>
+                    Teachers
+                </div>
+                <TableGen rows={["name", "designation", "mobile", "email"]} values={teacher} />
+            </div>
+            <div className="emergency box-shadow">
+                <div className='fs-3 mb-2'>Emergency Contacts</div>
+                <TableGen rows={["name", "position", "mobile"]} values={contact} />
+            </div>
         </div>
     );
 };

@@ -22,3 +22,28 @@
 .confirmation input {
     margin-left: 20px;
 }
+
+.mark-item {
+    display: flex;
+    margin-top: 12px;
+}
+
+.mark-icon {
+    width: 120px;
+}
+
+.mark-input {
+    display: block;
+    width: 50%;
+    padding: 5px 10px;
+}
+
+.ajura {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    border: 1px solid;
+    border-radius: 12px;
+    padding: 10px 20px;
+}

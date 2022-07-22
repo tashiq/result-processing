@@ -53,7 +53,7 @@ export default function Dashboard() {
                 <Divider />
                 <List
                 >
-                    <ListItem key={"home"} disablePadding className={isActive("/dashboard/home")}>
+                    <ListItem key={"home"} disablePadding className={isActive("/home")}>
                         <ListItemButton>
                             <Link to={"home"} style={{
                                 fontSize: "19px",
@@ -66,7 +66,7 @@ export default function Dashboard() {
                             >home</Link>
                         </ListItemButton>
                     </ListItem>
-                    <ListItem key={"profile"} disablePadding className={isActive("/dashboard/profile")}>
+                    <ListItem key={"profile"} disablePadding className={isActive("/profile")}>
                         <ListItemButton>
                             <Link to={"profile"} style={{
                                 fontSize: "19px",
@@ -78,7 +78,7 @@ export default function Dashboard() {
                             }}>profile</Link>
                         </ListItemButton>
                     </ListItem>
-                    <ListItem key={"mark"} disablePadding className={isActive("/dashboard/mark")}>
+                    <ListItem key={"mark"} disablePadding className={isActive("/mark")}>
                         <ListItemButton>
                             <Link to={"mark"} style={{
                                 fontSize: "19px",
@@ -94,7 +94,7 @@ export default function Dashboard() {
                 <Divider />
                 <List>
 
-                    <ListItem key={"notification"} disablePadding className={isActive("/dashboard/notification")}>
+                    <ListItem key={"notification"} disablePadding className={isActive("/notification")}>
                         <ListItemButton>
                             <Link to={"notification"} style={{
                                 fontSize: "19px",
@@ -107,7 +107,7 @@ export default function Dashboard() {
                         </ListItemButton>
                     </ListItem>
 
-                    <ListItem key={"history"} disablePadding className={isActive("/dashboard/history")}>
+                    <ListItem key={"history"} disablePadding className={isActive("/history")}>
                         <ListItemButton>
                             <Link to={"history"} style={{
                                 fontSize: "19px",

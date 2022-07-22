@@ -1,9 +1,7 @@
-import { Toolbar } from '@mui/material';
 import './profile.css';
-import { Link } from 'react-router-dom';
-import img from './../../../Images/cu_logo.png'
 import { useEffect } from 'react';
 import person from '../../../Images/person.png'
+import ToolbarGen from '../../Toolbar/Toolbar';
 const Profile = () => {
     useEffect(() => {
         const items = document.getElementsByClassName('edit');
@@ -34,28 +32,7 @@ const Profile = () => {
     }, [])
     return (
         <div>
-            <Toolbar
-                style={{
-                    backgroundColor: 'white',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    boxShadow: "2px 2px 5px #9caf9b",
-                    marginBottom: '20px'
-                }}
-            >
-                <div style={{
-                    textTransform: 'uppercase',
-                    fontSize: '21px',
-                    color: '#022b5e'
-                }}>profile</div>
-                <Link to="/dashboard/profile"><img
-                    className='img-thumbnail' style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%'
-                    }}
-                    src={img} alt="user pic" /></Link>
-            </Toolbar>
+            <ToolbarGen title="profile" />
             <div className='profile-container'>
                 <div className='info-section'>
 
