@@ -1,8 +1,11 @@
 import { Toolbar } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
 import img from '../../Images/person.png' // can be changed
 const ToolbarGen = ({ title }) => {
+    const { user } = useAuth();
+    const photo = user.photoURL;
     return (
         <Toolbar
             style={{
@@ -24,7 +27,7 @@ const ToolbarGen = ({ title }) => {
                     height: '40px',
                     borderRadius: '50%'
                 }}
-                src={img} alt="user pic" /></Link>
+                src={photo ? photo : img} alt="user pic" /></Link>
         </Toolbar>
     );
 };

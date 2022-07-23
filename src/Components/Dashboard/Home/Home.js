@@ -9,13 +9,13 @@ const Home = () => {
     const [teacher, setTeacher] = useState([{ name: "Mohammad Fahim Foisal", designation: "Student", mobile: "01974261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Sakib", designation: "Student", mobile: "01774261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Noman", designation: "Job", mobile: "01674261254", email: "fahim.csecu@gmail.com" }]);
 
     const [member, setMember] = useState([{ name: "Mohammad Fahim Foisal", mobile: "01974261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Sakib", mobile: "01774261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Noman", mobile: "01674261254", email: "fahim.csecu@gmail.com" }]);
-
     const handleHomeSearch = (e) => {
         // get data from backend.
 
         // do some operation
 
         // replace data
+
     }
     return (
         <div>

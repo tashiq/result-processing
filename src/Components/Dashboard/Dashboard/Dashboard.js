@@ -11,11 +11,16 @@ import ListItemButton from '@mui/material/ListItemButton';
 
 import "./Dashboard.css"
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
 
 const drawerWidth = 260;
 
 export default function Dashboard() {
     let location = useLocation();
+    const { logout, user } = useAuth();
+    const handleLogout = e => {
+        logout()
+    }
     let isActive = (x) => (location.pathname === x ? "active" : "li");
     return (
         <Box sx={{ display: 'flex' }}>
@@ -29,6 +34,7 @@ export default function Dashboard() {
                         backgroundColor: "rgb(226, 229, 228)",
                         width: drawerWidth,
                         boxSizing: 'border-box',
+                        minHeight: "100%"
                     },
                 }}
                 variant="permanent"
@@ -38,7 +44,8 @@ export default function Dashboard() {
                     style={
                         {
                             backgroundImage: "linear-gradient(120deg, #c9c9c9, white)",
-                            userSelect: "none"
+                            userSelect: "none",
+                            minHeight: "220px"
                         }
                     }
                 >
@@ -117,6 +124,18 @@ export default function Dashboard() {
                                 display: 'block',
                                 width: '100%'
                             }}>History</Link>
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem key={"logout"} disablePadding className={"li"}>
+                        <ListItemButton onClick={handleLogout}>
+                            <Link to={""} style={{
+                                fontSize: "19px",
+                                fontFamily: "popins, sans-serif",
+                                color: 'black',
+                                textDecoration: 'none',
+                                display: 'block',
+                                width: '100%'
+                            }}>Log Out</Link>
                         </ListItemButton>
                     </ListItem>
                 </List>
