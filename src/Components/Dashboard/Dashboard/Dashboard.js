@@ -42,7 +42,7 @@ export default function Dashboard() {
                         }
                     }
                 >
-                    <img src={img} alt="Cu logo" className='img-thumbnail rounded w-50' />
+                    <img src={img} alt="Cu logo" className='img-thumbnail rounded drawer-logo' />
                     <Typography style={{
                         fontFamily: "Roboto",
                         fontWeight: "500",
@@ -125,7 +125,7 @@ export default function Dashboard() {
                 component="main"
                 style={{
                     backgroundColor: "rgb(245, 246, 248)",
-                    height: "100vh"
+                    height: "100%"
                 }}
                 sx={{ flexGrow: 1, p: 3 }}
             >

@@ -5,6 +5,11 @@
     text-transform: capitalize;
 }
 
+.drawer-logo {
+    max-width: 50%;
+    max-height: 75%;
+}
+
 #side-nav {
     width: 250px;
     height: 100vh;
