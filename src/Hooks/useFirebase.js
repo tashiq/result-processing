@@ -18,9 +18,15 @@ const useFirebase = () => {
                 updateProfile(auth.currentUser, {
                     displayName: name
                 })
+                setIsLoading(false);
+                return { user };
             })
-            .catch(err => setError(err.code));
-        setIsLoading(false);
+            .catch(err => {
+                setError(err.code)
+                alert(err.code)
+                setIsLoading(false);
+                return { error };
+            });
     }
     // signin
     const emailSignIn = (email, pass, location, navigate) => {
@@ -31,9 +37,14 @@ const useFirebase = () => {
                 setUser(result.user);
                 const whereTo = location?.state?.from?.pathname || '/home';
                 navigate(whereTo);
+                setIsLoading(false);
+                return error;
             })
-            .catch(err => setError(err.code))
-        setIsLoading(false)
+            .catch(err => {
+                setError(err.code);
+                setIsLoading(false)
+                return error;
+            })
     }
     // sign out
     const logout = () => {
@@ -43,8 +54,8 @@ const useFirebase = () => {
                 setUser({})
                 setError(null)
             })
-            .catch((error) => {
-                setError(error.code);
+            .catch((err) => {
+                setError(err.code);
             });
         setIsLoading(false);
     }

@@ -1,0 +1,120 @@
+.sp-aph {
+    display: inline-block;
+}
+
+.W {
+    color: red;
+    animation-name: move;
+    animation-duration: 1.6s;
+    font-size: 1.2em;
+}
+
+@keyframes move {
+    0% {
+        transform: translateX(160px) rotate(180deg);
+    }
+
+    50% {
+        transform: translateX(0) rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(0);
+    }
+}
+
+.e1,
+.l,
+.c,
+.o,
+.m,
+.e2 {
+    color: rgb(4, 82, 82);
+    opacity: 1;
+}
+
+.e1 {
+    animation: e1;
+    animation-duration: 1.2s;
+}
+
+.e2 {
+    animation: e2;
+    animation-duration: .2s;
+}
+
+.m {
+    animation: m .4s ease-in;
+}
+
+.o {
+    animation: o .6s ease-in;
+}
+
+.c {
+    animation: o .8s ease-in;
+}
+
+.l {
+    animation: o 1s ease-in;
+}
+
+@keyframes e1 {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes e2 {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes l {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes c {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes o {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes m {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

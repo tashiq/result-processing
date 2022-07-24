@@ -1,3 +1,4 @@
+import { async } from '@firebase/util';
 import { TextField, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -9,16 +10,29 @@ const LoginBody = () => {
     const { emailSignIn, error, user } = useAuth();
     const location = useLocation();;
     const navigate = useNavigate();
-    useEffect(() => {
+
+    // const btn = document.getElementById('login-btn');
+    // console.log(btn);
+    // btn.addEventListener('click', () => {
+    //     const email = emailRef.current.value;
+    //     const pass = passwordRef.current.value;
+    //     emailSignIn(email, pass, location, navigate);
+    //     console.log("clicked");
+
+    // }
+    // )
+
+    window.onchange = () => {
         const btn = document.getElementById('login-btn');
         // console.log(btn);
         btn.addEventListener('click', () => {
             const email = emailRef.current.value;
             const pass = passwordRef.current.value;
-            // console.log(email, pass);
             emailSignIn(email, pass, location, navigate);
-        })
-    }, [user.email]);
+            // console.log(result);
+        }
+        )
+    }
     return (
         <div className='p-2' id='login-body'>
             <div id='form-container' className=''>
