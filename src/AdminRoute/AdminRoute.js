@@ -1,4 +1,3 @@
-import { CircularProgress } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Login from "../Components/Login/Login";
 import useAuth from "../Hooks/useAuth";

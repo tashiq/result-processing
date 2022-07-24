@@ -1,5 +1,5 @@
 import initAuthentication from '../Firebase/Firebase.init'
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import { useEffect, useState } from 'react';
 
 
@@ -30,7 +30,6 @@ const useFirebase = () => {
     }
     // signin
     const emailSignIn = (email, pass, location, navigate) => {
-        console.log(email, pass);
         setIsLoading(true);
         signInWithEmailAndPassword(auth, email, pass)
             .then(result => {
@@ -59,6 +58,15 @@ const useFirebase = () => {
             });
         setIsLoading(false);
     }
+    // password reset
+    const resetPassword = (email) => {
+        setIsLoading(true);
+        sendPasswordResetEmail(auth, email)
+            .then(result => {
+            })
+            .catch(err => setError(err.code))
+        setIsLoading(false);
+    }
     useEffect(() => {
         setIsLoading(true);
         onAuthStateChanged(auth, user => {
@@ -69,7 +77,7 @@ const useFirebase = () => {
         setIsLoading(false);
     }, [auth])
     return {
-        user, error, isLoading, createUser, emailSignIn, logout
+        user, error, isLoading, createUser, emailSignIn, logout, resetPassword
     }
 };
 

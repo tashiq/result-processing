@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Components/Dashboard/Home/Home';
 import AuthProvider from './Context/AuthProvider';
 import AdminRoute from './AdminRoute/AdminRoute';
+import Forgot from './Components/Forgot/Forgot';
 function App() {
   return (
     <AuthProvider>
@@ -23,6 +24,7 @@ function App() {
               <Route path='history' element={<History />} />
             </Route>
           </Route>
+          <Route path='/forgot-pass' element={<Forgot />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

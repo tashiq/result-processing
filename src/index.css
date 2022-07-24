@@ -11,3 +11,53 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.navigation a {
+  height: 100px;
+  background-color: azure;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+}
+
+.navigation a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-title {
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 30px;
+}
+
+.forgot-input {
+  background-color: beige;
+  width: 100%;
+  height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forget-content {
+  background-color: white;
+  border: 1px solid;
+  border-radius: 12px;
+  padding: 50px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#send-message span {
+  display: block;
+
+}
+
+.forget-content button {
+  margin-top: 15px;
+}
