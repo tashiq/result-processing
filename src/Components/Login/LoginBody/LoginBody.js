@@ -1,13 +1,12 @@
-import { async } from '@firebase/util';
 import { TextField, Typography } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
 import './LoginBody.css'
 const LoginBody = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
-    const { emailSignIn, error, user } = useAuth();
+    const { emailSignIn } = useAuth();
     const location = useLocation();;
     const navigate = useNavigate();
     const handleLogin = e => {

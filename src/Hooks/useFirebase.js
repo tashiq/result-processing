@@ -1,10 +1,12 @@
 import initAuthentication from '../Firebase/Firebase.init'
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import { useEffect, useState } from 'react';
+import { getStorage } from 'firebase/storage'
 
 
-initAuthentication();
+const app = initAuthentication();
 const useFirebase = () => {
+    const storage = getStorage(app);
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -77,7 +79,7 @@ const useFirebase = () => {
         setIsLoading(false);
     }, [auth])
     return {
-        user, error, isLoading, createUser, emailSignIn, logout, resetPassword
+        user, error, isLoading, createUser, emailSignIn, logout, resetPassword, storage
     }
 };
 

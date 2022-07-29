@@ -1,7 +1,7 @@
 import './profile.css';
 import { useEffect } from 'react';
-import person from '../../../Images/person.png'
 import ToolbarGen from '../../Toolbar/Toolbar';
+import ProfilePic from './ProfilePic';
 const Profile = () => {
     useEffect(() => {
         const items = document.getElementsByClassName('edit');
@@ -113,10 +113,7 @@ const Profile = () => {
                         </ul>
                     </div>
                 </div>
-                <div className='image-section'>
-                    <img src={person} alt={"user"} className="img-thumbnail" />
-                    <button className='btn btn-outline-dark'>Change Profile</button>
-                </div>
+                <ProfilePic />
             </div>
         </div>
     );

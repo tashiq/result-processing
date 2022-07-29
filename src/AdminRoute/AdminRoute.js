@@ -30,7 +30,6 @@ const AdminRoute = () => {
     }
     else if (user.email) {
         return <Outlet />
-
     }
     else {
         return <Login />
