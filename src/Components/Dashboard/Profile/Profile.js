@@ -1,119 +1,24 @@
 import './profile.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ToolbarGen from '../../Toolbar/Toolbar';
 import ProfilePic from './ProfilePic';
+import InfoSection from './InfoSection';
+import useAuth from '../../../Hooks/useAuth';
+import axios from 'axios';
 const Profile = () => {
+    const { user, storage } = useAuth();
+    const [info, setInfo] = useState({});
     useEffect(() => {
-        const items = document.getElementsByClassName('edit');
-        for (const item of items) {
-            item.addEventListener('click', () => {
-                const text = item.parentNode.parentNode;
-                text.childNodes[0].style.display = "flex";
-                text.childNodes[1].style.display = "none";
-                // set value
-            })
-        }
-        const saves = document.getElementsByClassName('fa-save');
-        for (const item of saves) {
-            item.addEventListener('click', () => {
-                const text = item.parentNode.parentNode;
-                text.childNodes[1].style.display = "flex";
-                text.childNodes[0].style.display = "none";
-            })
-        }
-        const close = document.getElementsByClassName('fa-window-close');
-        for (const item of close) {
-            item.addEventListener('click', () => {
-                const text = item.parentNode.parentNode;
-                text.childNodes[1].style.display = "flex";
-                text.childNodes[0].style.display = "none";
-            })
-        }
-    }, [])
+        axios.get(`https://frozen-journey-42014.herokuapp.com/users/${user.email}`).then(res => {
+            setInfo(res.data);
+        })
+    }, [user])
     return (
         <div>
             <ToolbarGen title="profile" />
             <div className='profile-container'>
-                <div className='info-section'>
-
-                    <div className='main-info'>
-                        <div className='desig'>Professor</div>
-                        <div className='name'>Khalid Afzal</div>
-                        <div className='email'>kafzal@gmail.com</div>
-                    </div>
-                    <div >
-                        <ul className='basic-info'>
-                            <li className='b-item'>
-                                <i className="fas icon fa-school"></i>
-                                <span className='b-topic'>Faculty</span>
-                                <div className='b-text'>
-                                    {/*  */}
-                                    <div className='b-input'>
-                                        <input className='b-in' />
-                                        <i className="far icon fa-save"></i>
-                                        <i className="fas icon   fa-window-close"></i>
-                                    </div>
-                                    <div className='b-value'>
-                                        <div className='b-inner-text'>BBA</div>
-                                        <div className='edit'> <i className="fas icon fa-pencil-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className='b-item'>
-                                <i className="fas icon fa-graduation-cap"></i>
-                                <span className='b-topic'>Department</span>
-                                <div className='b-text'>
-                                    <div className='b-input'>
-                                        <input className='b-in' />
-                                        <i className="far icon fa-save"></i>
-                                        <i className="fas icon   fa-window-close"></i>
-                                    </div>
-                                    <div className='b-value'>
-                                        <div className='b-inner-text'>Management</div>
-                                        <div className='edit'> <i className="fas icon fa-pencil-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className='b-item'>
-                                <i className="fas icon fa-tint"></i>
-                                <span className='b-topic'>Blood Group
-                                </span>
-                                <div className='b-text'>
-                                    <div className='b-input'>
-                                        <input className='b-in' />
-                                        <i className="far icon fa-save"></i>
-                                        <i className="fas icon   fa-window-close"></i>
-                                    </div>
-                                    <div className='b-value'>
-                                        <div className='b-inner-text'>O+</div>
-                                        <div className='edit'> <i className="fas icon fa-pencil-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className='b-item'>
-                                <i className="fas icon fa-phone"></i>
-                                <span className='b-topic'>Phone
-                                </span>
-                                <div className='b-text'>
-                                    <div className='b-input'>
-                                        <input className='b-in' />
-                                        <i className="far icon fa-save"></i>
-                                        <i className="fas icon   fa-window-close"></i>
-                                    </div>
-                                    <div className='b-value'>
-                                        <div className='b-inner-text'>+8801974372365</div>
-                                        <div className='edit'> <i className="fas icon fa-pencil-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <ProfilePic />
+                <InfoSection info={info} />
+                <ProfilePic user={info} storage={storage} />
             </div>
         </div>
     );

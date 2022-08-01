@@ -2,14 +2,10 @@ import { Toolbar } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
-import axios from 'axios'
 import img from '../../Images/person.png' // can be changed
 const ToolbarGen = ({ title }) => {
     const { user } = useAuth();
     const photo = user.photoURL;
-    useEffect(() => {
-        // axios.get("http://localhost:4000/user", )
-    }, [user])
     return (
         <Toolbar
             style={{

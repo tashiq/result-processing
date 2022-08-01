@@ -1,34 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import person from '../../../Images/person.png'
-import useAuth from '../../../Hooks/useAuth'
+import axios from 'axios'
 import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage'
-const ProfilePic = () => {
-    const { storage, user } = useAuth()
+const ProfilePic = ({ user, storage }) => {
     // const date = new Date();
     const [image, setImage] = useState(null);
-    const [dp, setDp] = useState(null);
-    const [success, setSuccess] = useState(false);
-    useEffect(() => {
-        const img = ref(storage, `images/${user.email}`)
-        listAll(img).then(res => {
-            getDownloadURL(res.items[0]).then(url => {
-                setDp(url);
-            })
-        })
-    }, [user, success])
-
+    const [dp, setDp] = useState({ photo: user.photo });
     const fileUpload = e => {
         if (image == null) {
+            return;
         }
         const upRef = ref(storage, `images/${user.email}/profile`);
         uploadBytes(upRef, image).then(() => {
-            setSuccess(!success);
+            listAll(ref(storage, `images/${user.email}`)).then(res => {
+                getDownloadURL(res.items[0]).then(url => {
+                    setDp({ photo: url });
+                    user.photo = url;
+                    axios.put(`https://frozen-journey-42014.herokuapp.com/users/${user.email}`, { url: url })
+                })
+            })
         })
     }
+    useEffect(() => {
 
+    }, [dp])
     return (
         <div className='image-section'>
-            <img src={dp || person} alt={"user"} className="img-thumbnail" />
+            <img src={user.photo} alt={"user"} className="img-thumbnail" />
             <div>
                 <button className='btn btn-outline-dark p-0' style={{
                     position: 'relative',

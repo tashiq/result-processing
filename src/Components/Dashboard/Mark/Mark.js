@@ -1,44 +1,40 @@
-import { useRef } from 'react';
+import axios from 'axios';
+import { useRef, useState } from 'react';
+import useAuth from '../../../Hooks/useAuth';
 import ToolbarGen from '../../Toolbar/Toolbar';
 import './Mark.css'
 const Mark = () => {
     const cMark = useRef();
     const cCourse = useRef();
-    const studentID = useRef();
-    const sMark = useRef();
-    const sCourse = useRef();
-    const sCode = useRef();
-    let option = document.querySelectorAll('input[name=exam]');
-    for (const item of option) {
-        document.getElementById('catm-field').style.display = "none";
-        document.getElementById('semester-field').style.display = "none";
-        item.addEventListener('click', () => {
-
-            if (item.value === 'catm') {
-                document.getElementById('catm-field').style.display = "block";
-                document.getElementById('semester-field').style.display = "none";
-            }
-            else {
-                document.getElementById('catm-field').style.display = "none";
-                document.getElementById('semester-field').style.display = "block";
-            }
-        })
-    }
-    const handleSemSubmit = e => {
-        const cO = {
-            courseid: sCourse,
-            code: sCode,
-            mark: sMark
-        }
-        console.log(cO);
-    }
+    const code = useRef();
+    const year = useRef();
+    const { user } = useAuth();
+    const [eType, setEtype] = useState(true); // true = catm
     const handleCatmSubmit = e => {
-        const cO = {
-            courseid: cCourse,
-            studentID: studentID,
-            mark: cMark
+        if (cCourse.current.value &&
+            code.current.value &&
+            cMark.current.value &&
+            year.current.value) {
+            const cO = {
+                courseid: cCourse.current.value,
+                studentID: code.current.value,
+                mark: cMark.current.value,
+                year: year.current.value,
+                type: eType ? "CATM" : "semester",
+                examiner: user.email,
+                date: new Date()
+            }
+            axios.post(`https://frozen-journey-42014.herokuapp.com/exammark?type=catm&code=${cO.studentID}`, cO)
+                .then(res => console.log(res))
+            // console.log(cO);
+            cCourse.current.value = ""
+            code.current.value = ""
+            cMark.current.value = ""
+            year.current.value = ""
         }
-        console.log(cO);
+        else {
+            alert("Missing Input")
+        }
     }
     return (
         <div>
@@ -46,38 +42,33 @@ const Mark = () => {
             <div className='mark-container'>
                 <div className='ajura'>
                     <div className='catm-field'>
-                        <div className='fs-4'>CATM mark</div>
+                        <div className='fs-4'>Mark Submission</div>
                         {/* id, course code, mark,  */}
                         <div className='mark-item'>
                             <div className='icon mark-icon'>Course Code</div>
-                            <input className='b-input mark-input' ref={cCourse} />
+                            <input className='b-input mark-input' type="text" ref={cCourse} />
+                        </div>
+                        <div className='mark-item choice-type'>
+                            <input type="radio" name='exam-type' id='catm' checked onClick={() => { setEtype(true) }} />
+                            <label htmlFor="catm">CATM marks</label>
+                            <input type="radio" name='exam-type' id='sem' />
+                            <label htmlFor="sem" onClick={() => { setEtype(false) }} >Semester Final Marks</label>
                         </div>
                         <div className='mark-item'>
-                            <div className='icon mark-icon'>Student ID</div>
-                            <input className='b-input mark-input' ref={studentID} />
+                            <div className='icon mark-icon'>{eType ? "Student ID" : "Paper Code"}</div>
+                            <input className='b-input mark-input' type="text" ref={code} />
                         </div>
                         <div className='mark-item'>
                             <div className='icon mark-icon'>Mark</div>
-                            <input className='b-input mark-input' autoComplete='off' type="number" ref={cMark} />
+                            <input className='b-input mark-input' autoComplete='off' type="text" ref={cMark} />
+                        </div>
+                        <div className='mark-item'>
+                            <div className='icon mark-icon'>Exam Year</div>
+                            <input className='b-input mark-input' type="text" ref={year} />
                         </div>
                         <button className='btn btn-outline-dark mt-2 ' onClick={handleCatmSubmit}>Submit</button>
                     </div>
-                    <div className='semester-field'>
-                        <div className='fs-4'>Semester Final Mark</div>
-                        <div className='mark-item'>
-                            <div className='icon mark-icon'>Course Code</div>
-                            <input className='b-input mark-input' ref={sCourse} />
-                        </div>
-                        <div className='mark-item'>
-                            <div className='icon mark-icon'>Paper Code</div>
-                            <input className='b-input mark-input' autoComplete='off' ref={sCode} />
-                        </div>
-                        <div className='mark-item'>
-                            <div className='icon mark-icon'>Mark</div>
-                            <input className='b-input mark-input' autoComplete='off' type="number" ref={sMark} />
-                        </div>
-                        <button className='btn btn-outline-dark mt-2 ' onClick={handleSemSubmit}>Submit</button>
-                    </div>
+
                 </div>
             </div>
         </div>

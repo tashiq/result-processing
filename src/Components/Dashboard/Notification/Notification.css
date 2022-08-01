@@ -39,3 +39,10 @@
     width: 20px;
     height: 20px;
 }
+
+#mark-as-read {
+    text-align: right;
+    cursor: pointer;
+    margin-bottom: 12px;
+    user-select: none;
+}

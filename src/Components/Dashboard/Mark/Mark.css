@@ -3,6 +3,16 @@
     margin-top: 12px;
 }
 
+.mark-item input[type=radio] {
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.mark-item label {
+    font-size: 1.1em;
+    color: rgb(6, 6, 90);
+}
+
 .mark-icon {
     width: 120px;
 }
@@ -12,6 +22,7 @@
     width: 50%;
     padding: 5px 10px;
 }
+
 
 .ajura {
     margin-top: 20px;
@@ -25,11 +36,21 @@
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.semester-field {
-    background-color: rgb(223, 239, 252);
-    padding: 12px;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+.catm-field div {
+    width: 60%;
+}
+
+
+.catm-field>div>div {
+    width: 30%;
+}
+
+.catm-field>div>input[type=text] {
+    width: 70%;
 }

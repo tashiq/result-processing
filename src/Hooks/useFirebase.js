@@ -69,6 +69,8 @@ const useFirebase = () => {
             .catch(err => setError(err.code))
         setIsLoading(false);
     }
+    // update photo
+
     useEffect(() => {
         setIsLoading(true);
         onAuthStateChanged(auth, user => {
