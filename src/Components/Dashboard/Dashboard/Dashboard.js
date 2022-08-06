@@ -10,18 +10,28 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 
 import "./Dashboard.css"
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
+import axios from 'axios';
 
 const drawerWidth = 260;
 
 export default function Dashboard() {
     let location = useLocation();
+    const navigate = useNavigate();
     const { logout, user } = useAuth();
+    const [role, setRole] = React.useState();
     const handleLogout = e => {
         logout()
     }
+    const navigateHome = e => {
+        navigate('/home')
+    }
     let isActive = (x) => (location.pathname === x ? "active" : "li");
+
+    React.useEffect(() => {
+        axios.get(axios.get(`http://localhost:4000/users/${user.email}`).then(res => setRole(res.data.role)))
+    }, [user])
     return (
         <Box sx={{ display: 'flex' }}>
             {/* <CssBaseline /> */}
@@ -40,14 +50,17 @@ export default function Dashboard() {
                 variant="permanent"
                 anchor="left"
             >
+                {/* LOGO */}
                 <Toolbar className='d-flex align-items-center flex-column w-100 text-center p-2'
                     style={
                         {
                             backgroundImage: "linear-gradient(120deg, #c9c9c9, white)",
                             userSelect: "none",
-                            minHeight: "220px"
+                            minHeight: "220px",
+                            cursor: 'pointer'
                         }
                     }
+                    onClick={navigateHome}
                 >
                     <img src={img} alt="Cu logo" className='img-thumbnail rounded drawer-logo' />
                     <Typography style={{
@@ -58,6 +71,7 @@ export default function Dashboard() {
                     }}>Chittagong University<br /> Result Processing System</Typography>
                 </Toolbar>
                 <Divider />
+                {/* Navigation */}
                 <List
                 >
                     <ListItem key={"home"} disablePadding className={isActive("/home")}>
@@ -85,6 +99,52 @@ export default function Dashboard() {
                             }}>profile</Link>
                         </ListItemButton>
                     </ListItem>
+                    {
+                        // special options
+                        role === "exam committee" && <>
+
+
+                            <ListItem key={"addMember"} disablePadding className={isActive("/addmember")}>
+                                <ListItemButton>
+                                    <Link to={"addmember"} style={{
+                                        fontSize: "19px",
+                                        fontFamily: "popins, sans-serif",
+                                        color: 'black',
+                                        textDecoration: 'none',
+                                        display: 'block',
+                                        width: '100%'
+                                    }}
+                                    >Add an examiner</Link>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem key={"notify"} disablePadding className={isActive("/notify")}>
+                                <ListItemButton>
+                                    <Link to={"notify"} style={{
+                                        fontSize: "19px",
+                                        fontFamily: "popins, sans-serif",
+                                        color: 'black',
+                                        textDecoration: 'none',
+                                        display: 'block',
+                                        width: '100%'
+                                    }}
+                                    >Notify</Link>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem key={"encode"} disablePadding className={isActive("/encode")}>
+                                <ListItemButton>
+                                    <Link to={"encode"} style={{
+                                        fontSize: "19px",
+                                        fontFamily: "popins, sans-serif",
+                                        color: 'black',
+                                        textDecoration: 'none',
+                                        display: 'block',
+                                        width: '100%'
+                                    }}
+                                    >Encode</Link>
+                                </ListItemButton>
+                            </ListItem>
+                        </>
+                    }
                     <ListItem key={"mark"} disablePadding className={isActive("/mark")}>
                         <ListItemButton>
                             <Link to={"mark"} style={{

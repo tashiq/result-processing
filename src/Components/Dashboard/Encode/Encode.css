@@ -1,0 +1,29 @@
+.encode-unit {
+    margin-top: 12px;
+}
+
+.encode-unit input {
+    padding: 10px 12px;
+    margin-right: 12px;
+    border: 0px;
+    border-radius: 5px;
+    margin-top: 9px;
+    font-size: 17px;
+    box-shadow: 1px 1px 3px grey;
+    width: 30%;
+}
+
+.encode-plus {
+    background-color: rgb(13, 53, 53);
+    font-size: 20px;
+    color: white;
+    margin-top: 12px;
+    padding: 5px 13px;
+    border: 0;
+    border-radius: 7px;
+}
+
+.encode-submit {
+    display: block;
+    margin-top: 12px;
+}

@@ -24,7 +24,7 @@ const Mark = () => {
                 examiner: user.email,
                 date: new Date()
             }
-            axios.post(`https://frozen-journey-42014.herokuapp.com/exammark?type=catm&code=${cO.studentID}`, cO)
+            axios.post(`http://localhost:4000/exammark?type=catm&code=${cO.studentID}`, cO)
                 .then(res => console.log(res))
             // console.log(cO);
             cCourse.current.value = ""

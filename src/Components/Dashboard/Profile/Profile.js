@@ -9,7 +9,7 @@ const Profile = () => {
     const { user, storage } = useAuth();
     const [info, setInfo] = useState({});
     useEffect(() => {
-        axios.get(`https://frozen-journey-42014.herokuapp.com/users/${user.email}`).then(res => {
+        axios.get(`http://localhost:4000/users/${user.email}`).then(res => {
             setInfo(res.data);
         })
     }, [user])

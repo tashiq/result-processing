@@ -14,7 +14,6 @@ const LoginBody = () => {
         const email = emailRef.current.value;
         const pass = passwordRef.current.value;
         emailSignIn(email, pass, location, navigate);
-        emailRef.current.value = '';
         passwordRef.current.value = '';
     }
     return (
@@ -29,6 +28,11 @@ const LoginBody = () => {
                     marginTop: '10px'
                 }}>Forgot Password?</Link>
                 <button className='sbmit mt-4' type='submit' id='login-btn' onClick={handleLogin}>Log In</button>
+                <Link to={"/signup"} style={{
+                    width: '100%',
+                    marginLeft: '150px',
+                    marginTop: '10px'
+                }}>Do you have permission?. Create account!</Link>
             </form>
         </div>
     );

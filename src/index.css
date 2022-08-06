@@ -60,3 +60,9 @@ code {
 .forget-content button {
   margin-top: 15px;
 }
+
+.exam-add-committee {
+  text-align: center;
+  /* justify-self: center; */
+
+}

@@ -1,11 +1,15 @@
 import { Toolbar } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
+import axios from 'axios'
 import img from '../../Images/person.png' // can be changed
 const ToolbarGen = ({ title }) => {
-    const { user } = useAuth();
-    const photo = user.photoURL;
+    const { user } = useAuth()
+    const [photo, setPhoto] = useState(null);
+    useEffect(() => {
+        axios.get(`http://localhost:4000/users/${user.email}`).then(res => setPhoto(res.data.photo))
+    }, [user])
     return (
         <Toolbar
             style={{

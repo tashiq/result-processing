@@ -34,9 +34,14 @@
     background-color: rgb(107, 107, 233);
     color: white;
     font-size: 18px;
+    box-shadow: 2px 2px 4px lightgray;
 }
 
 .submit:hover {
     background-color: rgb(73, 73, 246);
     box-shadow: 4px 4px 6px rgb(231, 227, 227);
+}
+
+.submit:active {
+    box-shadow: 0 0;
 }

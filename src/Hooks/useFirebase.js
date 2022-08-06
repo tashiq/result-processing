@@ -12,20 +12,18 @@ const useFirebase = () => {
     const [error, setError] = useState(null);
     const auth = getAuth();
     // create user
-    const createUser = (email, password, name) => {
+    const createUser = (email, password, navigate) => {
         setIsLoading(true);
-        createUserWithEmailAndPassword(email, password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then(result => {
                 setUser(result.user)
-                updateProfile(auth.currentUser, {
-                    displayName: name
-                })
                 setIsLoading(false);
-                return { user };
+                navigate('/home')
+                return { user }
             })
             .catch(err => {
                 setError(err.code)
-                alert(err.code)
+                console.log(err);
                 setIsLoading(false);
                 return { error };
             });
@@ -39,7 +37,7 @@ const useFirebase = () => {
                 const whereTo = location?.state?.from?.pathname || '/home';
                 navigate(whereTo);
                 setIsLoading(false);
-                return error;
+                return { user };
             })
             .catch(err => {
                 setError(err.code);

@@ -9,7 +9,7 @@ const History = () => {
     const { user } = useAuth();
     const [rows, setRows] = useState([]);
     useEffect(() => {
-        axios.get(`https://frozen-journey-42014.herokuapp.com/exammark?editedBy=${user.email}`)
+        axios.get(`http://localhost:4000/exammark?editedBy=${user.email}`)
             .then(res => {
                 const newItem = res.data.map(items => {
                     const { date, courseid, coursename, type, studentID, mark } = items;

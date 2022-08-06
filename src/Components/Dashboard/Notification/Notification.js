@@ -9,7 +9,7 @@ const Notification = () => {
     const [selectedList, setSelectedList] = useState([]);
     const [updated, setUpdated] = useState(false);
     useEffect(() => {
-        axios.get(`https://frozen-journey-42014.herokuapp.com/notifications?email=${user.email}`).then(res => setNotifications(res.data))
+        axios.get(`http://localhost:4000/notifications?email=${user.email}`).then(res => setNotifications(res.data))
     }, [updated])
     const handleNotificationClick = (_id, index) => {
         // remove if listed. add if not listed
@@ -29,7 +29,7 @@ const Notification = () => {
     }
     const handleReadNotifications = e => {
         if (selectedList.length) {
-            axios.put(`https://frozen-journey-42014.herokuapp.com/notifications?email=${user.email}&read=true`, selectedList).then(res => {
+            axios.put(`http://localhost:4000/notifications?email=${user.email}&read=true`, selectedList).then(res => {
                 setUpdated(!updated)
             })
             for (const item of selectedList) {

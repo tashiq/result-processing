@@ -15,7 +15,7 @@ const ProfilePic = ({ user, storage }) => {
                 getDownloadURL(res.items[0]).then(url => {
                     setDp({ photo: url });
                     user.photo = url;
-                    axios.put(`https://frozen-journey-42014.herokuapp.com/users/${user.email}`, { url: url })
+                    axios.put(`http://localhost:4000/users/${user.email}`, { url: url })
                 })
             })
         })

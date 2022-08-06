@@ -21,7 +21,7 @@ const InfoSection = ({ info }) => {
     }
     const handleEditSubmit = e => {
         setBtnToggle(true);
-        axios.put(`https://frozen-journey-42014.herokuapp.com/users?email=${data.email}`, update)
+        axios.put(`http://localhost:4000/users?email=${data.email}`, update)
             .then(res => {
                 if (res) {
                 }
@@ -41,9 +41,9 @@ const InfoSection = ({ info }) => {
                     <div className='main-info' style={{
                         minHeight: "50px",
                     }}>
-                        <div className='desig'>{data.designation || ""}</div>
-                        <div className='name'>{data.name || ""}</div>
-                        <div className='email'>{data.email || ""}</div>
+                        <div className='desig'>{data.designation || "Designation"}</div>
+                        <div className='name'>{data.name || "Name"}</div>
+                        <div className='email'>{data.email || "Email"}</div>
                     </div>
                     <div >
                         <ul className='basic-info'>
@@ -99,8 +99,8 @@ const InfoSection = ({ info }) => {
                     <div className='main-info' style={{
                         minHeight: "50px",
                     }}>
-                        <input className='desig' value={update.designation} onChange={handleInput} name="designation" />
-                        <input className='name' value={update.name} onChange={handleInput} name="name" />
+                        <input className='desig' placeholder="Designation" value={update.designation} onChange={handleInput} name="designation" />
+                        <input className='name' placeholder="Name" value={update.name} onChange={handleInput} name="name" />
                         <input className='email' value={update.email} disabled onChange={handleInput} name="email" />
                     </div>
                     <div >
