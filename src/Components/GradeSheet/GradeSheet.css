@@ -1,0 +1,108 @@
+.invisibility {
+    /* display: none; */
+}
+
+.gradesheet-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 793.7007874px;
+    width: 1114.9606299px;
+    background-color: white;
+    font-size: 12px;
+}
+
+.gradesheet-top {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 103.93700787px;
+}
+
+.marksheet-cu-info {
+    margin-left: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.points-table {
+    width: 321.25984252px;
+    box-sizing: border-box;
+    border: 1px solid;
+}
+
+.points-table td,
+.points-table th {
+    font-size: 12px;
+    border-bottom: 1px solid;
+}
+
+.student-info {
+    font-weight: 500;
+    width: 70%;
+    margin-bottom: 15px;
+}
+
+.student-info-unit {
+    display: flex;
+    font-weight: 500;
+}
+
+.student-info-key {
+    width: 100px;
+}
+
+
+.gradesheet-mark table {
+    font-style: italic;
+    width: 907.08661417px;
+    border: 1px solid;
+    margin-bottom: 15px;
+}
+
+.gradesheet-result-info {
+    width: 82%;
+    margin-bottom: 15px;
+}
+
+.result-info-key {
+    width: 170px;
+}
+
+.gradesheet-mark table,
+.gradesheet-mark th,
+.gradesheet-mark td {
+    border: 1px solid;
+    font-size: 12px;
+}
+
+.gradesheet-mark td {
+    padding-left: 5px;
+}
+
+.gradesheet-bottom {
+    display: flex;
+    width: 82%;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.gradesheet-bottom-input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.gradesheet-bottom-input-container input {
+    outline: 0;
+    border-bottom: 1px dotted;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}

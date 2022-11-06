@@ -1,0 +1,17 @@
+#committee-year,
+#semester-type {
+    outline: 0;
+    border: 0px;
+    border-bottom: 1px solid;
+    padding-left: 9px;
+    margin-left: 20px;
+    height: 35px;
+    width: 75px;
+    margin-top: 15px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+#semester-type-label {
+    margin-left: 50px;
+}

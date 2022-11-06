@@ -9,16 +9,15 @@ const History = () => {
     const { user } = useAuth();
     const [rows, setRows] = useState([]);
     useEffect(() => {
-        axios.get(`http://localhost:4000/exammark?editedBy=${user.email}`)
+        axios.get(`http://localhost:4000/history?submittedBy=${user.email}`)
             .then(res => {
+                // console.log(res.data);
                 const newItem = res.data.map(items => {
-                    const { date, courseid, coursename, type, studentID, mark } = items;
-                    const sem = courseid[courseid.length - 3];
-                    const newDate = new Date(date);
-                    const showDate = newDate.getMinutes() + ':' + newDate.getHours() + ' ' + newDate.getDate() + '/' + newDate.getMonth() + '/' + newDate.getFullYear();
-                    return { showDate, sem, courseid, coursename, type, studentID, mark }
+                    const { paperCode, courseCode, courseName, exam, examYear, total, q1, q2, q3, q4, submissionTime } = items;
+                    const newDate = new Date(submissionTime);
+                    const showDate = newDate.getHours() + ':' + newDate.getMinutes() + ' ' + newDate.getDate() + '/' + newDate.getMonth() + '/' + newDate.getFullYear();
+                    return { showDate, paperCode, courseCode, courseName, exam, examYear, total, q1, q2, q3, q4 }
                 })
-                console.log(newItem);
                 setRows(newItem)
             })
     }, [user])
@@ -28,7 +27,7 @@ const History = () => {
             <ToolbarGen title={"history"} />
             {
                 rows &&
-                <TableGen rows={["date", "semester", "course id", "course name", "Type", "student id", "mark"]} values={rows} />
+                <TableGen rows={["Date", "Paper Code", "Course Code", "Course Name", "Exam", "Exam Year", "Total", "Question 1", "Question 2", "Question 3", "Question 4"]} values={rows} />
             }
         </div>
     );

@@ -31,7 +31,7 @@ const CreateUserBody = () => {
         supBtn.style.backgroundColor = "rgb(169 169 231)"
         supBtn.style.color = '#d7d2d2'
         axios.get(`http://localhost:4000/users/${email}`).then(res => {
-            if (res.data) {
+            if (res.data[0]) {
                 createUser(email, pass, navigate);
             }
             else {

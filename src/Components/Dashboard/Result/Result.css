@@ -1,0 +1,21 @@
+.result-table {
+    background-color: white;
+    padding: 25px 15px;
+    border-radius: 12px;
+}
+
+.result-table>tr {
+    border-bottom: 1px solid black;
+    min-height: 75px;
+}
+
+.result-table>td {
+    min-width: 105px;
+}
+
+.result-th {
+    padding: 4px 8px;
+    font-size: 16px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 600;
+}

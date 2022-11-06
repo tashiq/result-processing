@@ -61,8 +61,9 @@ code {
   margin-top: 15px;
 }
 
-.exam-add-committee {
-  text-align: center;
-  /* justify-self: center; */
-
+@media print {
+  body {
+    height: 793.7007874px;
+    width: 1114.9606299px;
+  }
 }

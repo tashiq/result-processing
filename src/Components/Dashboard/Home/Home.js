@@ -1,25 +1,77 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import useAuth from '../../../Hooks/useAuth';
 import TableGen from '../../Table/Table';
 import ToolbarGen from '../../Toolbar/Toolbar';
 import './Home.css'
+import congrates from '../../../Images/congrates.jpg'
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 const Home = () => {
-    const [contact, setContact] = useState([{ name: "Mohammad Fahim Foisal", position: "Student", mobile: "01974261254" }, { name: "Mohammad Sakib", position: "Student", mobile: "01774261254" }, { name: "Mohammad Noman", position: "Job", mobile: "01674261254" }]);
+    const { user } = useAuth();
+    const [info, setInfo] = useState();
+    const rows = ['Course code', 'Completed']
+    useEffect(() => {
+        axios.get(`http://localhost:4000/examiners/${user.email}`)
+            .then(res => setInfo(res.data))
+    }, [])
 
-    const [teacher, setTeacher] = useState([{ name: "Mohammad Fahim Foisal", designation: "Student", mobile: "01974261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Sakib", designation: "Student", mobile: "01774261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Noman", designation: "Job", mobile: "01674261254", email: "fahim.csecu@gmail.com" }]);
-
-    const [member, setMember] = useState([{ name: "Mohammad Fahim Foisal", mobile: "01974261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Sakib", mobile: "01774261254", email: "fahim.csecu@gmail.com" }, { name: "Mohammad Noman", mobile: "01674261254", email: "fahim.csecu@gmail.com" }]);
-    const handleHomeSearch = (e) => {
-        // get data from backend.
-
-        // do some operation
-
-        // replace data
-
+    const checkAllClear = () => {
+        let free = true;
+        for (const item of info) {
+            if (item.completed !== true) return true;
+        }
+        return false
     }
     return (
         <div>
             <ToolbarGen title={"home"} />
-            <div className='search-form'>
+            {
+                info && checkAllClear() ?
+                    <div className="committe box-shadow">
+                        <div className='fs-3 mb-2'>
+                            To Do
+                        </div>
+                        <TableContainer component={Paper}>
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>#</TableCell>
+                                        {
+                                            rows.map((row) =>
+                                                <TableCell align="center" className='text-capitalize'>{row}</TableCell>
+                                            )
+                                        }
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {
+                                        info.map((itemRows, index) =>
+                                            <TableRow
+                                                key={index}
+                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                            >
+                                                <TableCell component="th" scope="row">
+                                                    {index + 1}
+                                                </TableCell>
+                                                <TableCell align="center">{itemRows['courseCode']}</TableCell>
+                                                <TableCell align="center">{itemRows['completed'] ? 'Yes' : 'X'}</TableCell>
+                                            </TableRow>
+                                        )
+                                    }
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </div>
+                    :
+                    <div>
+                        <h2>You are all clear!!</h2>
+                        <img src={congrates} alt="Congrates" />
+                    </div>
+
+
+
+            }
+            {/* <div className='search-form'>
                 <div >
                     <input type="text" placeholder='Search by Name' onChange={handleHomeSearch} /><button><i className="fas fa-search"></i></button>
                 </div>
@@ -30,16 +82,11 @@ const Home = () => {
                 </div>
                 <TableGen rows={["name", "contact", "email"]} values={member} />
             </div>
-            <div className="teacher box-shadow">
-                <div className='fs-3 mb-2'>
-                    Teachers
-                </div>
-                <TableGen rows={["name", "designation", "mobile", "email"]} values={teacher} />
-            </div>
+
             <div className="emergency box-shadow">
                 <div className='fs-3 mb-2'>Emergency Contacts</div>
                 <TableGen rows={["name", "position", "mobile"]} values={contact} />
-            </div>
+            </div> */}
         </div>
     );
 };

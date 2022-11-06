@@ -4,7 +4,7 @@ import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage'
 const ProfilePic = ({ user, storage }) => {
     // const date = new Date();
     const [image, setImage] = useState(null);
-    const [dp, setDp] = useState({ photo: user.photo });
+    const [dp, setDp] = useState({ photo: user.url });
     const fileUpload = e => {
         if (image == null) {
             return;
@@ -14,7 +14,7 @@ const ProfilePic = ({ user, storage }) => {
             listAll(ref(storage, `images/${user.email}`)).then(res => {
                 getDownloadURL(res.items[0]).then(url => {
                     setDp({ photo: url });
-                    user.photo = url;
+                    user.url = url;
                     axios.put(`http://localhost:4000/users/${user.email}`, { url: url })
                 })
             })
@@ -25,7 +25,7 @@ const ProfilePic = ({ user, storage }) => {
     }, [dp])
     return (
         <div className='image-section'>
-            <img src={user.photo} alt={"user"} className="img-thumbnail" />
+            <img src={user.url} alt={"user"} className="img-thumbnail" />
             <div>
                 <button className='btn btn-outline-dark p-0' style={{
                     position: 'relative',

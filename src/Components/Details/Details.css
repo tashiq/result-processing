@@ -1,0 +1,7 @@
+.btn-shadow {
+    box-shadow: 2px 3px 5px grey;
+}
+
+.btn-shadow:active {
+    box-shadow: 2px 1px 2px grey;
+}

@@ -30,18 +30,21 @@
     border-radius: 12px;
 }
 
-.catm-field {
+.catm-field,
+.catm-field>div {
     background-color: aliceblue;
     padding: 12px;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    margin-bottom: 5px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+/* 
 .catm-field div {
     width: 60%;
 }
@@ -49,8 +52,69 @@
 
 .catm-field>div>div {
     width: 30%;
+} */
+
+.markinput_top {
+    margin-top: 7px;
 }
 
-.catm-field>div>input[type=text] {
-    width: 70%;
+.markinput_cu_title {
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+.input_underline,
+.table_input {
+    outline: 0;
+    border-left: 0px;
+    border-right: 0;
+    border-top: 0;
+    padding-left: 5px;
+}
+
+
+
+#markinput-table thead th {
+    border: 1px solid;
+}
+
+
+#markinput-table tbody td {
+    border: 1px solid;
+}
+
+.markinput_heading {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+
+
+.markinput_exam {
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.cu_logo_markinput {
+    width: 51px;
+}
+
+.add_row_btn {
+    margin-left: 12px;
+    border: 0px;
+    padding: 5px 12px;
+    border-radius: 12px;
+    background-color: rgb(30, 130, 231);
+    color: white;
+    box-shadow: 2px 2px 3px gray;
+    margin-top: 12px;
+}
+
+.add_row_btn:active {
+    box-shadow: 1px 1px 1px gray;
+}
+
+.table_input {
+    padding: 4px 8px;
+    width: 90%;
 }

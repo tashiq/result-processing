@@ -14,10 +14,10 @@ const Notify = () => {
     const [users, setUsers] = useState([]);
     useEffect(
         () => {
-            axios.get(`http://localhost:4000/users/${user.email}`).then(res => setRole(res.data.role))
+            axios.get(`http://localhost:4000/users/${user.email}`).then(res => setRole(res.data[0].isExamCommittee))
         }
         , [user])
-    if (role && role !== "exam committee") {
+    if (role && role !== user.email) {
         navigate('/home')
     }
     useEffect(() => {
@@ -37,7 +37,7 @@ const Notify = () => {
         <>
             <ToolbarGen title={"Notify"} />
             {
-                role === "exam committee" ?
+                role ?
                     <div>
                         {/* email selection */}
                         {
@@ -66,7 +66,7 @@ const Notify = () => {
                         }}>Message</label>
                         <textarea
                             id='notification-box'
-                            cols="110"
+                            cols="100"
                             rows="5"
                             style={{
                                 boxShadow: '2px 2px 4px #c4c9c7',

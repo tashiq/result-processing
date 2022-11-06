@@ -20,7 +20,7 @@ export default function Dashboard() {
     let location = useLocation();
     const navigate = useNavigate();
     const { logout, user } = useAuth();
-    const [role, setRole] = React.useState();
+    const [role, setRole] = React.useState({});
     const handleLogout = e => {
         logout()
     }
@@ -30,7 +30,9 @@ export default function Dashboard() {
     let isActive = (x) => (location.pathname === x ? "active" : "li");
 
     React.useEffect(() => {
-        axios.get(axios.get(`http://localhost:4000/users/${user.email}`).then(res => setRole(res.data.role)))
+        axios.get(axios.get(`http://localhost:4000/users/${user.email}`)
+            .then(res => setRole({ chairman: res.data[0].isChairman, examCommittee: res.data[0].isExamCommittee })))
+        // .catch(err => alert(err))
     }, [user])
     return (
         <Box sx={{ display: 'flex' }}>
@@ -101,9 +103,7 @@ export default function Dashboard() {
                     </ListItem>
                     {
                         // special options
-                        role === "exam committee" && <>
-
-
+                        (role.chairman === 1 || role.examCommittee) && <>
                             <ListItem key={"addMember"} disablePadding className={isActive("/addmember")}>
                                 <ListItemButton>
                                     <Link to={"addmember"} style={{
@@ -130,9 +130,9 @@ export default function Dashboard() {
                                     >Notify</Link>
                                 </ListItemButton>
                             </ListItem>
-                            <ListItem key={"encode"} disablePadding className={isActive("/encode")}>
+                            <ListItem key={"decode"} disablePadding className={isActive("/decode")}>
                                 <ListItemButton>
-                                    <Link to={"encode"} style={{
+                                    <Link to={"decode"} style={{
                                         fontSize: "19px",
                                         fontFamily: "popins, sans-serif",
                                         color: 'black',
@@ -140,7 +140,7 @@ export default function Dashboard() {
                                         display: 'block',
                                         width: '100%'
                                     }}
-                                    >Encode</Link>
+                                    >Decode</Link>
                                 </ListItemButton>
                             </ListItem>
                         </>
@@ -157,11 +157,39 @@ export default function Dashboard() {
                             }}>mark input</Link>
                         </ListItemButton>
                     </ListItem>
+                    {role.examCommittee && <>
+                        <ListItem key={"result"} disablePadding className={isActive("/result")}>
+                            <ListItemButton>
+                                <Link to={"result"} style={{
+                                    fontSize: "19px",
+                                    fontFamily: "popins, sans-serif",
+                                    color: 'black',
+                                    textDecoration: 'none',
+                                    display: 'block',
+                                    width: '100%'
+                                }}>Result</Link>
+                            </ListItemButton>
+                        </ListItem>
+                    </>}
+                    {role.chairman === 1 && <>
+                        <ListItem key={"chairman"} disablePadding className={isActive("/chairman")}>
+                            <ListItemButton>
+                                <Link to={"chairman"} style={{
+                                    fontSize: "19px",
+                                    fontFamily: "popins, sans-serif",
+                                    color: 'black',
+                                    textDecoration: 'none',
+                                    display: 'block',
+                                    width: '100%'
+                                }}>exam committee</Link>
+                            </ListItemButton>
+                        </ListItem>
+                    </>}
                 </List>
                 <Divider />
                 <List>
 
-                    <ListItem key={"notification"} disablePadding className={isActive("/notification")}>
+                    {/* <ListItem key={"notification"} disablePadding className={isActive("/notification")}>
                         <ListItemButton>
                             <Link to={"notification"} style={{
                                 fontSize: "19px",
@@ -172,7 +200,7 @@ export default function Dashboard() {
                                 width: '100%'
                             }}>Notification</Link>
                         </ListItemButton>
-                    </ListItem>
+                    </ListItem> */}
 
                     <ListItem key={"history"} disablePadding className={isActive("/history")}>
                         <ListItemButton>

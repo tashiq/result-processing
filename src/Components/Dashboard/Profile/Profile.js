@@ -10,7 +10,7 @@ const Profile = () => {
     const [info, setInfo] = useState({});
     useEffect(() => {
         axios.get(`http://localhost:4000/users/${user.email}`).then(res => {
-            setInfo(res.data);
+            setInfo(res.data[0]);
         })
     }, [user])
     return (
