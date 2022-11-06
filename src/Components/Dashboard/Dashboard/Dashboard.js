@@ -117,7 +117,7 @@ export default function Dashboard() {
                                     >Add an examiner</Link>
                                 </ListItemButton>
                             </ListItem>
-                            <ListItem key={"notify"} disablePadding className={isActive("/notify")}>
+                            {/* <ListItem key={"notify"} disablePadding className={isActive("/notify")}>
                                 <ListItemButton>
                                     <Link to={"notify"} style={{
                                         fontSize: "19px",
@@ -129,7 +129,7 @@ export default function Dashboard() {
                                     }}
                                     >Notify</Link>
                                 </ListItemButton>
-                            </ListItem>
+                            </ListItem> */}
                             <ListItem key={"decode"} disablePadding className={isActive("/decode")}>
                                 <ListItemButton>
                                     <Link to={"decode"} style={{
