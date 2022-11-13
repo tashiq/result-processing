@@ -13,22 +13,26 @@ const AddExaminer = () => {
     const [course, setCourse] = useState([]);
     useEffect(
         () => {
-            axios.get(`http://localhost:4000/users/${user.email}`).then(res => setRole(res.data[0].isExamCommittee))
+            axios.get(`http://localhost:4000/users/${user.email}`).then(res => {
+                setRole(res.data[0].isExamCommittee ? true : res.data[0].isChairman)
+            })
             axios.get('http://localhost:4000/courses/').then(res => setCourse(res.data))
         }
         , [])
-    if (role && role !== user.email) {
-        navigate('/home')
-    }
     const handleAddSubmit = e => {
         e.preventDefault();
-        if (info.email?.indexOf('@') > -1 && info.email?.indexOf('.') > -1) {
-            axios.post(`http://localhost:4000/examiners/`, { email: info.email, courses: info.courses })
-                .then(() => {
-                })
-                .catch(err => { console.log(err) })
-        }
-
+        if (info.year !== '')
+            if (info.email?.indexOf('@') > -1 && info.email?.indexOf('.') > -1) {
+                axios.post(`http://localhost:4000/examiners/`, { email: info.email, courses: info.courses, year: info.year })
+                    .then(() => {
+                        alert('Submitted')
+                        document.getElementById('markinput-email').value = '';
+                    })
+                    .catch(err => { console.log(err) })
+            }
+            else {
+                alert('Put Entry in Year Field.')
+            }
 
     }
     const handleChange = e => {
@@ -47,7 +51,7 @@ const AddExaminer = () => {
 
                         <div className='mark-item'>
                             <div className='icon mark-icon'>Email &nbsp;<span style={{ color: 'red' }}> *</span></div>
-                            <input className='b-input mark-input' type="email" required name='email' onChange={handleChange} />
+                            <input className='b-input mark-input' id='markinput-email' type="email" required name='email' onChange={handleChange} />
                         </div>
                         <div className='mark-item'>
                             <div className='icon mark-icon'>Course &nbsp;<span style={{ color: 'red' }}> *</span></div>
@@ -75,6 +79,10 @@ const AddExaminer = () => {
                                 style={{ backgroundColor: 'white' }}
 
                             />
+                        </div>
+                        <div className='mark-item'>
+                            <div className='icon mark-icon'>Year &nbsp;<span style={{ color: 'red' }}> *</span></div>
+                            <input className='b-input mark-input' id='markinput-year' type="text" required name='year' onChange={handleChange} />
                         </div>
                         <button className='sbmit mt-4' onClick={handleAddSubmit}>Assign</button>
                     </form> :

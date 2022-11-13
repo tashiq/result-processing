@@ -57,11 +57,12 @@ const Details = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div>
-                <button className='sbmit encode-submit btn-shadow' id='print-marksheet-btn' onClick={handlePrintGradeSheet}>Print Marksheet</button>
+            <div className='mt-4'>
                 {
                     <GradeSheet id="gradesheet"></GradeSheet>
                 }
+
+                <button className='sbmit encode-submit btn-shadow' id='print-marksheet-btn' onClick={handlePrintGradeSheet}>Print Marksheet</button>
             </div>
         </div>
     );

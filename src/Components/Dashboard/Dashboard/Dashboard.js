@@ -30,8 +30,8 @@ export default function Dashboard() {
     let isActive = (x) => (location.pathname === x ? "active" : "li");
 
     React.useEffect(() => {
-        axios.get(axios.get(`http://localhost:4000/users/${user.email}`)
-            .then(res => setRole({ chairman: res.data[0].isChairman, examCommittee: res.data[0].isExamCommittee })))
+        axios.get(`http://localhost:4000/users/${user.email}`)
+            .then(res => setRole({ chairman: res.data[0].isChairman, examCommittee: res.data[0].isExamCommittee }))
         // .catch(err => alert(err))
     }, [user])
     return (
@@ -157,7 +157,7 @@ export default function Dashboard() {
                             }}>mark input</Link>
                         </ListItemButton>
                     </ListItem>
-                    {role.examCommittee && <>
+                    {(role.chairman === 1 || role.examCommittee) && <>
                         <ListItem key={"result"} disablePadding className={isActive("/result")}>
                             <ListItemButton>
                                 <Link to={"result"} style={{

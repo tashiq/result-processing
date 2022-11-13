@@ -6,7 +6,7 @@ import './Chairman.css'
 const Chairman = () => {
     const [teachers, setTeachers] = useState([])
     const [selectedTeachers, setSelectedTeachers] = useState();
-    const [semesterType, setSemesterType] = useState(true);
+    const [semesterType, setSemesterType] = useState(false);
     const [year, setYear] = useState();
     useEffect(() => {
         axios.get('http://localhost:4000/users')
@@ -18,7 +18,13 @@ const Chairman = () => {
             semesterType,
             selectedTeachers
         }
-        axios.put('http://localhost:4000/examcommittee', data).catch(err => alert(err))
+        axios.put('http://localhost:4000/examcommittee', data)
+            .then(res => {
+                alert('Assigned')
+                document.getElementById('createExamCommittee').disabled = true;
+                document.getElementById('createExamCommittee').style.backgroundColor = '#8299b1'
+            })
+            .catch(err => alert(err))
     }
     return (
         <div>
@@ -52,7 +58,7 @@ const Chairman = () => {
                 </select>
             </div>
             <div>
-                <button className='sbmit mt-3 btn-shadow' onClick={handleCreateCommittee}>Create</button>
+                <button className='sbmit mt-3 btn-shadow' onClick={handleCreateCommittee} id="createExamCommittee">Create</button>
             </div>
         </div>
     );

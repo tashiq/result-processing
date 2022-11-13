@@ -1,24 +1,26 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../../Hooks/useAuth';
-import TableGen from '../../Table/Table';
 import ToolbarGen from '../../Toolbar/Toolbar';
 import './Home.css'
 import congrates from '../../../Images/congrates.jpg'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import Committees from '../../Committees/Committees';
 const Home = () => {
     const { user } = useAuth();
     const [info, setInfo] = useState();
-    const rows = ['Course code', 'Completed']
+    const rows = ['Course code', 'Year', 'Completed']
     useEffect(() => {
         axios.get(`http://localhost:4000/examiners/${user.email}`)
-            .then(res => setInfo(res.data))
+            .then(res => {
+                setInfo(res.data)
+                // console.log(res.data);
+            })
     }, [])
 
     const checkAllClear = () => {
-        let free = true;
         for (const item of info) {
-            if (item.completed !== true) return true;
+            if (item.completed !== 1) return true;
         }
         return false
     }
@@ -54,6 +56,7 @@ const Home = () => {
                                                     {index + 1}
                                                 </TableCell>
                                                 <TableCell align="center">{itemRows['courseCode']}</TableCell>
+                                                <TableCell align="center">{itemRows['year']}</TableCell>
                                                 <TableCell align="center">{itemRows['completed'] ? 'Yes' : 'X'}</TableCell>
                                             </TableRow>
                                         )
@@ -71,22 +74,8 @@ const Home = () => {
 
 
             }
-            {/* <div className='search-form'>
-                <div >
-                    <input type="text" placeholder='Search by Name' onChange={handleHomeSearch} /><button><i className="fas fa-search"></i></button>
-                </div>
-            </div>
-            <div className="committe box-shadow">
-                <div className='fs-3 mb-2'>
-                    Exam Committe
-                </div>
-                <TableGen rows={["name", "contact", "email"]} values={member} />
-            </div>
+            <Committees email={user.email} />
 
-            <div className="emergency box-shadow">
-                <div className='fs-3 mb-2'>Emergency Contacts</div>
-                <TableGen rows={["name", "position", "mobile"]} values={contact} />
-            </div> */}
         </div>
     );
 };

@@ -15,21 +15,24 @@ const Encode = () => {
         let result = []
         for (let i = 0; i < allBlocks.length; i++) {
             const nodes = allBlocks[i].childNodes;
-            if (nodes[0].value !== '')
+            if (nodes[0].value !== '') {
                 result = [...result, { studentId: nodes[0].value, paperCode: nodes[1].value }]
+            }
         }
         axios.post('http://localhost:4000/decode', result)
             .catch(err => alert(err))
+
+        document.getElementById('decode-submit-btn').disabled = true;
+        document.getElementById('decode-submit-btn').style.backgroundColor = '#8299b1'
     }
     return (
         <div>
             <ToolbarGen title="Decode" />
             <div id="encode-container">
                 {
-                    courseCode ?
+                    courseCode.length ?
                         <>
                             {
-
                                 courseCode.map((code) =>
                                     <div className='encode-unit'>
                                         <input type="text" className='stdid' autoComplete='off' placeholder='Student ID' />
@@ -37,11 +40,11 @@ const Encode = () => {
                                     </div>
                                 )
                             }
+                            <button className='sbmit encode-submit' id='decode-submit-btn' onClick={handleEncodeSubmit} >Submit</button>
                         </>
-                        : 'You All Set'
+                        : <h3>No papers to decode.</h3>
                 }
             </div>
-            <button className='sbmit encode-submit' onClick={handleEncodeSubmit} >Submit</button>
         </div>
     );
 };

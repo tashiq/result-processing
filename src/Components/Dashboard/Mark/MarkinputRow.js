@@ -1,21 +1,15 @@
-import { TableCell, TableRow } from '@mui/material';
-import React from 'react';
-
-const MarkinputRow = ({ rows }) => {
-    console.log(rows);
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import './App.css';
+import Profile from './Components/Dashboard/Profile/Profile'
+import Home from './Components/Dashboard/Home/Home';
+function App() {
     return (
-        <TableRow
-            key={""}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-        >
-            <TableCell component="th" scope="row">
-                {1}
-            </TableCell>
-            <TableCell align="left"><input type="number" className='table_input' /></TableCell>
-            <TableCell align="left"><input type="text" className='table_input' /></TableCell>
-            <TableCell align="left"><input type="number" className='table_input' /></TableCell>
-        </TableRow>
+        <BrowserRouter>
+            <Routes>
+                <Route path='home' element={<Home />} />
+                <Route path='profile' element={<Profile />} />
+            </Routes>
+        </BrowserRouter>
     );
-};
-
-export default MarkinputRow;
+}
+export default App;

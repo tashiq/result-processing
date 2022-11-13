@@ -4,7 +4,7 @@ import blackLogo from '../../Images/cu_logo_black.png'
 import axios from 'axios';
 const GradeSheet = ({ id }) => {
     const [result, setResult] = useState();
-    let lastMoment = []
+    let last = []
     const [courses, setCourses] = useState([])
     const params = new URLSearchParams(window.location.search);
     const url = `http://localhost:4000/gradesheet?sid=${params.get('sid')}&sem=${params.get('sem')}&year=${params.get('year')}`
@@ -16,19 +16,19 @@ const GradeSheet = ({ id }) => {
     }, [])
 
     const PatchUp = () => {
-        let finalKela = []
+        let temp = []
         for (const course of courses) {
             let found = false;
             const code = course.courseCode
             for (const res of result) {
                 if (res.courseCode === code) {
                     found = true;
-                    finalKela = [...finalKela, res];
+                    temp = [...temp, res];
                     break;
                 }
             }
             if (!found) {
-                finalKela = [...finalKela, {
+                temp = [...temp, {
                     courseCode: code,
                     courseName: course.courseName,
                     credit: course.credit,
@@ -36,19 +36,19 @@ const GradeSheet = ({ id }) => {
                 }]
             }
         }
-        lastMoment = [...finalKela];
+        last = [...temp];
         return true;
     }
     const earnedCreditCalc = () => {
         let sum = 0
-        for (const item of lastMoment) {
+        for (const item of last) {
             sum += item['grade'] >= 2.00 ? item['credit'] : 0
         }
         return sum;
     }
     const totalCreditCalc = () => {
         let sum = 0
-        for (const item of lastMoment) {
+        for (const item of last) {
             sum += item['credit']
         }
         return sum;
@@ -63,7 +63,7 @@ const GradeSheet = ({ id }) => {
             case 2.75: return 'B-'
             case 2.50: return 'C+'
             case 2.25: return 'C'
-            case 2.20: return 'C-'
+            case 2.00: return 'D'
             case 0.00: return 'F'
             default: return 'X'
         }
@@ -97,7 +97,7 @@ const GradeSheet = ({ id }) => {
                             <div>Chittagong, Bangladesh</div>
                             <div>Department of Computer Science and Engineering</div>
                             <div>GRADE SHEET</div>
-                            <div>{lastMoment && semeseterCalc(result[0]?.semester)}&nbsp;Semester B.Sc. Engineering Examination, {lastMoment && result[0]?.examYear}</div>
+                            <div>{last && semeseterCalc(result[0]?.semester)}&nbsp;Semester B.Sc. Engineering Examination, {last && result[0]?.examYear}</div>
                         </div>
                         <div className=''>
                             <table className='points-table'>
@@ -152,7 +152,7 @@ const GradeSheet = ({ id }) => {
                                     </tr>
                                     <tr>
                                         <td style={{ textAlign: 'left' }}>40% to less than 45%</td>
-                                        <td style={{ textAlign: 'center' }}>C-</td>
+                                        <td style={{ textAlign: 'center' }}>D</td>
                                         <td style={{ textAlign: 'center' }}>2.00</td>
                                     </tr>
                                     <tr>
@@ -167,13 +167,15 @@ const GradeSheet = ({ id }) => {
                     <div className='student-info'>
                         <div className='student-info-unit'>
                             <div className='student-info-key'>Name</div>
-                            <div className='student-info-value'>: &nbsp;{ }</div> </div>
+                            <div className='student-info-value'>: &nbsp;{
+                                params.get('name')
+                            }</div> </div>
                         <div className='student-info-unit'>
                             <div className='student-info-key'>Student ID</div>
                             <div className='student-info-value'>: &nbsp;{params.get('sid')}</div></div>
                         <div className='student-info-unit'>
                             <div className='student-info-key'>Hall</div>
-                            <div className='student-info-value'>: &nbsp;{ }</div> </div>
+                            <div className='student-info-value'>: &nbsp;{params.get('hall')}</div> </div>
                     </div>
                     <div className='gradesheet-mark'>
                         <table>
@@ -189,7 +191,7 @@ const GradeSheet = ({ id }) => {
                             </thead>
                             <tbody>
                                 {
-                                    lastMoment?.map(row =>
+                                    last?.map(row =>
                                         <tr>
 
                                             <td style={{ textAlign: 'center' }}>{row.courseCode}</td>
@@ -207,10 +209,10 @@ const GradeSheet = ({ id }) => {
                     <div className='gradesheet-result-info'>
                         <div className='student-info-unit'>
                             <div className='result-info-key'>Total Credit Offered</div>
-                            <div className='result-info-value'>: &nbsp;{lastMoment && totalCreditCalc()}</div> </div>
+                            <div className='result-info-value'>: &nbsp;{last && totalCreditCalc()}</div> </div>
                         <div className='student-info-unit'>
                             <div className='result-info-key'>Total Credit Earned</div>
-                            <div className='result-info-value'>: &nbsp;{lastMoment && earnedCreditCalc()}</div></div>
+                            <div className='result-info-value'>: &nbsp;{last && earnedCreditCalc()}</div></div>
                         <div className='student-info-unit'>
                             <div className='result-info-key'>Grade Point Average</div>
                             <div className='result-info-value'>: &nbsp;{params.get('cgpa')}</div>

@@ -5,15 +5,25 @@ import ToolbarGen from '../../Toolbar/Toolbar';
 import logo from '../../../Images/cu_logo.png'
 import './Mark.css'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 const MarkInput = () => {
     const { user } = useAuth(false);
     const [info, setInfo] = useState();
     const [catm, setCatm] = useState();
+    const navigate = useNavigate();
     useEffect(() => {
         axios.get(`http://localhost:4000/examiners/${user.email}`)
-            .then(res => setInfo(res.data))
+            .then(res => {
+                let prev = [];
+                for (const item of res.data) {
+
+                    if (item.completed === 0) {
+                        prev = [...prev, item]
+                    }
+                }
+                setInfo(prev);
+            })
     }, [])
-    // console.log(info);
     const [input, setInput] = useState(true);
     const [rows, setRows] = useState(1);
 
@@ -25,17 +35,18 @@ const MarkInput = () => {
         }
     }
     const handleMarkSubmit = e => {
-        // document.getElementById('markinput-mark-submit-btn').disabled = true;
-        // document.getElementById('markinput-mark-submit-btn').style.backgroundColor = '#8299b1'
         // console.log(document.getElementById('markinput-mark-submit-btn'));
         const exam = document.getElementById('markinput_exam_name').value;
         const year = document.getElementById('markinput_exam_type').value;
         const courseCode = document.getElementById('markinput_course').value;
         const courseName = document.getElementById('markinput_course_name').value;
-        // if (year === '' || courseCode === '' || courseName === '') {
-        // alert('Empty field')
-        // return
-        // }
+        if (year === '') {
+            alert('Empty year field')
+            return
+        }
+
+        document.getElementById('markinput-mark-submit-btn').disabled = true;
+        document.getElementById('markinput-mark-submit-btn').style.backgroundColor = '#8299b1'
         const rows = document.querySelectorAll('#markinput-body>tr');
         let allMarks = [];
         for (const row of rows) {
@@ -58,14 +69,40 @@ const MarkInput = () => {
         // console.log(result);
 
         axios.post(`http://localhost:4000/marks/`, result)
-            .then(res => res.data)
+            .then(res => navigate('/history'))
             .catch(err => console.log(err))
 
     }
-
+    const handleAllInput = (e) => {
+        const value = e.target.value;
+        for (const item of info) {
+            if (item.courseCode === value && item.completed === 0) {
+                document.getElementById('markinput_course_name').value = item.courseName;
+            }
+        }
+    }
+    const handleGreaterValue = e => {
+        if (parseFloat(e.currentTarget.value ? e.currentTarget.value : 0) > 9) {
+            e.currentTarget.style.borderBottom = '2px solid red'
+            return
+        } else {
+            e.currentTarget.style.borderBottom = '2px solid grey'
+        }
+        const parentTag = e.currentTarget.parentNode.parentNode;
+        // console.log(parentTag.childNodes[3].firstChild.value);
+        let q1 = parseFloat(parentTag.childNodes[2].firstChild.value);
+        q1 = q1 ? q1 : 0
+        let q2 = parseFloat(parentTag.childNodes[3].firstChild.value);
+        q2 = q2 ? q2 : 0
+        let q3 = parseFloat(parentTag.childNodes[4].firstChild.value);
+        q3 = q3 ? q3 : 0
+        let q4 = parseFloat(parentTag.childNodes[5].firstChild.value);
+        q4 = q4 ? q4 : 0
+        parentTag.childNodes[6].firstChild.value = q1 + q2 + q3 + q4;
+    }
     return (
         <div>
-            <ToolbarGen title={"mark input"} />
+
             <div className='ajura catm-field' >
                 <h3>Select Marking Type</h3>
                 <select name='mark-type' id='mark-type' className='markinput_exam input_underline'
@@ -82,10 +119,10 @@ const MarkInput = () => {
                         <div>
                             <img src={logo} alt="CU logo" className='cu_logo_markinput' />
                             <div className='markinput_cu_title markinput_top'>
-                                চট্টগ্রাম বিশ্ববিদ্যালয়
+                                UNIVERSITY OF CHITTAGONG
                             </div>
                             <div className="markinput_heading markinput_top">
-                                পরীক্ষার্থীদের প্রাপ্ত নম্বরের তালিকা
+                                Obtained Marks by the Students
                             </div>
                             <div className='markinput_exam_name markinput_top'>
                                 <select name='exam_name' id='markinput_exam_name' className='markinput_exam input_underline'>
@@ -98,18 +135,20 @@ const MarkInput = () => {
                                     <option value="seventhsem">7th Semester BSc. Engineering</option>
                                     <option value="eighthsem">8th Semester BSc. Engineering</option>
                                 </select>
-                                <label htmlFor="markinput_exam_name" style={{ paddingLeft: '9px', paddingRight: '9px' }}>পরীক্ষা</label>
+                                <label htmlFor="markinput_exam_name" style={{ paddingLeft: '9px', paddingRight: '9px' }}>Exam</label>
                                 <input type="number" name="exam_year" id="markinput_exam_type" min="1999" max="9999" className='input_underline' style={{ width: '70px', paddingLeft: '3px' }} />
-                                <label htmlFor="markinput_exam_type" style={{ margin: '0px 4px', display: 'inline-block' }}>ইং</label>
+
                             </div>
                             <div className="markinput_top">
-                                <label htmlFor="markinput_course_name" >বিষয়ঃ</label><input type="text" id='markinput_course_name' className='input_underline' style={{ paddingLeft: '5px' }} />
-                                <label htmlFor="markinput_course_code" style={{ margin: '0px 4px', display: 'inline-block' }}>কোর্স কোডঃ</label>
+                                <label htmlFor="markinput_course_name" >Course:</label>
+                                <input type="text" id='markinput_course_name' className='input_underline' style={{ paddingLeft: '5px' }} defaultValue={info ? info[0]?.courseName : ''} />
+                                <label htmlFor="markinput_course_code" style={{ margin: '0px 4px', display: 'inline-block' }}>Course Code</label>
 
-                                <select name='exam_name' id='markinput_course' className='markinput_exam input_underline'>
+                                <select name='exam_name' id='markinput_course' className='markinput_exam input_underline' onChange={handleAllInput}>
                                     {
+                                        // console.log(info)
                                         info?.map((course) =>
-                                            course.completed ? '' : <option value={course.courseCode}>{course.courseCode}</option>
+                                            <option value={course.courseCode}>{course.courseCode}</option>
                                         )
 
                                     }
@@ -162,10 +201,10 @@ const MarkInput = () => {
                                                         <TableRow>
                                                             <TableCell>Serial No.</TableCell>
                                                             <TableCell align="center">Code Number</TableCell>
-                                                            <TableCell align="center">1</TableCell>
-                                                            <TableCell align="center">2</TableCell>
-                                                            <TableCell align="center">3</TableCell>
-                                                            <TableCell align="center">4</TableCell>
+                                                            <TableCell align="center">Question 1</TableCell>
+                                                            <TableCell align="center">Question 2</TableCell>
+                                                            <TableCell align="center">Question 3</TableCell>
+                                                            <TableCell align="center">Question 4</TableCell>
                                                             <TableCell align="center">Total Mark</TableCell>
                                                         </TableRow>
                                                     </TableHead>
@@ -180,11 +219,11 @@ const MarkInput = () => {
                                                                         {i + 1}
                                                                     </TableCell>
                                                                     <TableCell align="center"><input type="text" className='table_input' name='paperCode' /></TableCell>
-                                                                    <TableCell align="center"><input type="text" className='table_input' name='q1' /></TableCell>
-                                                                    <TableCell align="center"><input type="number" className='table_input' name='q2' min="0" /></TableCell>
-                                                                    <TableCell align="center"><input type="number" className='table_input' name='q3' min="0" /></TableCell>
-                                                                    <TableCell align="center"><input type="number" className='table_input' name='q4' min="0" /></TableCell>
-                                                                    <TableCell align="center"><input type="number" className='table_input' name='total' min="0" /></TableCell>
+                                                                    <TableCell align="center"><input type="text" className='table_input' name='q1' onChange={handleGreaterValue} /></TableCell>
+                                                                    <TableCell align="center"><input type="number" className='table_input' name='q2' onChange={handleGreaterValue} min="0" /></TableCell>
+                                                                    <TableCell align="center"><input type="number" className='table_input' name='q3' onChange={handleGreaterValue} min="0" /></TableCell>
+                                                                    <TableCell align="center"><input type="number" className='table_input' name='q4' onChange={handleGreaterValue} min="0" /></TableCell>
+                                                                    <TableCell align="center"><input type="number" className='table_input' name='total' min="0" disabled /></TableCell>
                                                                 </TableRow>
                                                             )
                                                         }
