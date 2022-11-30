@@ -1,3 +1,4 @@
 ## Result processsing System
 
--- This is a project on Software Engineering
+-- This project is not hosted online.
+-- Backend is available in my github account.
