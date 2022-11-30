@@ -58,11 +58,9 @@ const Result = () => {
                                         }
                                     </TableRow>
                                 </TableHead>
-
                                 < TableBody >{
                                     // console.log(groups, i)
                                     groups.map((itemRows, index) =>
-
                                         <TableRow
                                             key={i}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -75,6 +73,10 @@ const Result = () => {
                                                     <TableCell align="center">{row}</TableCell>
                                                 )
                                             }
+
+                                            <TableCell align="center">
+                                                <Link to={`/details?year=${itemRows.examYear}&sid=${itemRows.studentID}&sem=${itemRows.semester}`} >Details</Link>
+                                            </TableCell>
                                         </TableRow>
                                     )
                                 }
